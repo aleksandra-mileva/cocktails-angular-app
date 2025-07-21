@@ -1,0 +1,52 @@
+<mat-toolbar color="primary" class="header-toolbar mat-elevation-z4">
+  <div class="toolbar-content">
+    <!-- LEFT: Logo -->
+    <div class="left-section">
+      <a routerLink="/" class="logo-link">
+        <img src="/images/logo.png" alt="Logo" class="logo-img">
+      </a>
+    </div>
+
+    <!-- CENTER: Navigation menus -->
+    <div class="center-section nav-links">
+      <button mat-button [matMenuTriggerFor]="cocktailMenu">Cocktails</button>
+      <mat-menu #cocktailMenu="matMenu">
+        <button mat-menu-item routerLink="/cocktails/all">All Cocktails</button>
+        <button mat-menu-item routerLink="/cocktails/whiskey">Whiskey</button>
+        <button mat-menu-item routerLink="/cocktails/tequila">Tequila</button>
+        <button mat-menu-item routerLink="/cocktails/gin">Gin</button>
+        <button mat-menu-item routerLink="/cocktails/rum">Rum</button>
+        <button mat-menu-item routerLink="/cocktails/vodka">Vodka</button>
+        <button mat-menu-item routerLink="/cocktails/brandy">Brandy</button>
+        <button mat-menu-item routerLink="/cocktails/non-alcoholic">Non-Alcoholic</button>
+      </mat-menu>
+
+      <button mat-button routerLink="/cocktails/search">Search</button>
+      <button mat-button routerLink="/cocktails/add">Add Cocktail</button>
+
+      <button mat-button [matMenuTriggerFor]="profileMenu">User</button>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item routerLink="/users/profile/1">Profile</button>
+        <button mat-menu-item routerLink="/users/profile/1/addedCocktails">My Cocktails</button>
+        <button mat-menu-item routerLink="/users/profile/1/addedPictures">My Photos</button>
+        <button mat-menu-item routerLink="/users/profile/1/favoriteCocktails">Favorites</button>
+        <button mat-menu-item routerLink="/fortunes/fortune">Get Fortune</button>
+      </mat-menu>
+
+      <button mat-button [matMenuTriggerFor]="adminMenu">Admin</button>
+      <mat-menu #adminMenu="matMenu">
+        <button mat-menu-item routerLink="/statistics">Statistics</button>
+        <button mat-menu-item routerLink="/fortunes">Fortunes</button>
+        <button mat-menu-item routerLink="/fortunes/add">Add Fortune</button>
+      </mat-menu>
+    </div>
+
+    <!-- RIGHT: Welcome & Auth buttons -->
+    <div class="right-section">
+      <span class="welcome-text">Welcome, Aleksandra</span>
+      <button mat-button class="logout-btn">Logout</button>
+      <button mat-button routerLink="/users/register">Register</button>
+      <button mat-button routerLink="/users/login">Login</button>
+    </div>
+  </div>
+</mat-toolbar>

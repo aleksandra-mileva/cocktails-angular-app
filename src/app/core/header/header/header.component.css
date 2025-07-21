@@ -1,0 +1,67 @@
+.header-toolbar {
+  background-color: #ffffff;
+  color: #000000;
+  padding: 0 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.toolbar-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+/* LEFT */
+.left-section {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+}
+
+/* CENTER */
+.center-section {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* RIGHT */
+.right-section {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.logo-img {
+  height: 40px;
+}
+
+.mat-button {
+  font-weight: 500;
+  color: #000000;
+}
+
+.mat-button:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.logout-btn {
+  color: #c62828;
+}
+
+.welcome-text {
+  margin-left: 0.5rem;
+  font-weight: 500;
+  white-space: nowrap;
+  font-size: 0.95rem;
+  font-family: inherit;
+  color: #000;
+}
+

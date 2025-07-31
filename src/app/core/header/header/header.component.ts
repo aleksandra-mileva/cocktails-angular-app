@@ -13,7 +13,7 @@ import {RouterLink} from '@angular/router';
     MatMenu,
     MatButton,
     RouterLink,
-    MatMenuItem
+    MatMenuItem,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'

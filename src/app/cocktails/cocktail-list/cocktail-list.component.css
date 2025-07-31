@@ -1,0 +1,29 @@
+.cocktail-list-header {
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 2rem 0 1rem;
+  color: #444;
+}
+
+.cocktail-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding-left: 25rem;
+  padding-right: 25rem;
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 960px) {
+  .cocktail-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cocktail-list {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,21 @@
+<section class="comments-section mat-elevation-z4">
+  <h3 class="comments-title">Comments</h3>
+  @if(isLoadingComments){
+    <app-loader/>
+  } @else {
+    @for (comment of comments; track $index) {
+      <app-comment [comment]="comment" (commentDeleted)="fetchComments(page)"/>
+    }
+  }
+
+  <app-pagination
+    [page]="page"
+    [totalPages]="totalPages"
+    (pageChange)="loadComments($event)">
+  </app-pagination>
+
+  @if (isLoggedIn) {
+    <app-comment-add (newCommentAdded)="fetchComments(0)" />
+  }
+
+</section>

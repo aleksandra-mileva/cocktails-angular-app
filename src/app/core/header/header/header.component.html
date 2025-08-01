@@ -11,14 +11,14 @@
     <div class="center-section nav-links">
       <button mat-button [matMenuTriggerFor]="cocktailMenu">Cocktails</button>
       <mat-menu #cocktailMenu="matMenu">
-        <button mat-menu-item routerLink="/cocktails">All Cocktails</button>
-        <button mat-menu-item [routerLink]="['/cocktails']" [queryParams]="{ spirit: 'WHISKEY' }">Whiskey</button>
-        <button mat-menu-item [routerLink]="['/cocktails']" [queryParams]="{ spirit: 'TEQUILA' }">Tequila</button>
-        <button mat-menu-item [routerLink]="['/cocktails']" [queryParams]="{ spirit: 'GIN' }">Gin</button>
-        <button mat-menu-item [routerLink]="['/cocktails']" [queryParams]="{ spirit: 'RUM' }">Rum</button>
-        <button mat-menu-item [routerLink]="['/cocktails']" [queryParams]="{ spirit: 'VODKA' }">Vodka</button>
-        <button mat-menu-item [routerLink]="['/cocktails']" [queryParams]="{ spirit: 'BRANDY' }">Brandy</button>
-        <button mat-menu-item [routerLink]="['/cocktails']" [queryParams]="{ spirit: 'NONE' }">Non-Alcoholic</button>
+        <button mat-menu-item routerLink="/cocktails/all">All Cocktails</button>
+        <button mat-menu-item routerLink="/cocktails/spirit/whiskey">Whiskey</button>
+        <button mat-menu-item routerLink="/cocktails/spirit/tequila">Tequila</button>
+        <button mat-menu-item routerLink="/cocktails/spirit/gin">Gin</button>
+        <button mat-menu-item routerLink="/cocktails/spirit/rum">Rum</button>
+        <button mat-menu-item routerLink="/cocktails/spirit/vodka">Vodka</button>
+        <button mat-menu-item routerLink="/cocktails/spirit/brandy">Brandy</button>
+        <button mat-menu-item routerLink="/cocktails/spirit/non-alcoholic">Non-Alcoholic</button>
       </mat-menu>
 
       <button mat-button routerLink="/cocktails/search">Search</button>

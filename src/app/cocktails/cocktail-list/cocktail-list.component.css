@@ -10,10 +10,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  padding-left: 25rem;
-  padding-right: 25rem;
-  padding-top: 1rem;
-  padding-bottom: 2rem;
+  padding: 1rem 25rem 2rem;
 }
 
 @media (max-width: 960px) {

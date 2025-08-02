@@ -21,6 +21,14 @@
             <mat-icon>delete</mat-icon> Delete
           </button>
         }
+        @if (cocktail.canDelete) {
+          <span class="divider">|</span>
+        }
+        @if (cocktail.canDelete) {
+          <button mat-button color="primary" class="edit-btn">
+            <mat-icon>edit</mat-icon> Edit
+          </button>
+        }
       </div>
     </div>
 
@@ -39,6 +47,7 @@
     </div>
 
   </div>
+  <!-- EO Row 1: Title + Meta Info | Characteristics -->
 
   <!-- Row 2: Image | YouTube Video -->
   <div class="row row-2">

@@ -5,24 +5,20 @@
   padding: 1rem;
 }
 
-/* All rows */
 .row {
   display: flex;
   gap: 2rem;
 }
 
-/* All columns */
 .column {
   flex: 1;
 }
 
-/* Make left and right equal width in each row */
 .left,
 .right {
   flex: 1 1 50%;
 }
 
-/* Specific style adjustments */
 .actions-row {
   display: flex;
   flex-wrap: wrap;
@@ -82,3 +78,11 @@ h4 {
   font-size: 1.5rem;
   color: #333;
 }
+
+.edit-btn {
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+

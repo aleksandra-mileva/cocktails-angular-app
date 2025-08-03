@@ -1,11 +1,11 @@
 <form class="comment-form" #form="ngForm" (ngSubmit)="addComment(form)">
   <textarea
-    name="message"
+    name="text"
     placeholder="Add your comment..."
     rows="3"
     required
     ngModel
-    #message="ngModel"></textarea>
+    #text="ngModel"></textarea>
   <button
     [disabled]="form.invalid"
     [style]="{backgroundColor: form.invalid ? 'grey' : '#234465'}">Post Comment

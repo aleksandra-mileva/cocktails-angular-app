@@ -1,18 +1,16 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule, NgForm} from '@angular/forms';
 import {UserService} from '../user.service';
 import {Router} from '@angular/router';
 import {DOMAINS} from '../../constants';
 import {UserLoginRequest} from '../../types/userLoginRequest';
-import { LoaderComponent } from '../../shared/loader/loader.component';
-import {EmailDirective} from '../../directives/email.directive';
+import {LoaderComponent} from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
     FormsModule,
-    EmailDirective,
     LoaderComponent
   ],
   templateUrl: './login.component.html',
@@ -24,12 +22,15 @@ export class LoginComponent {
   isLoading: boolean = false;
   username: string = '';
 
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(private userService: UserService, private router: Router) {
+  }
 
   login(form: NgForm): void {
     if (form.invalid) {
       console.error('Invalid login form!');
       return;
+    } else {
+      console.log('valid form')
     }
 
     this.isLoading = true;

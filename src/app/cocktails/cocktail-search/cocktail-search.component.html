@@ -1,1 +1,94 @@
-<p>cocktail-search works!</p>
+<div class="search-container">
+  <mat-card class="search-form">
+    <form [formGroup]="form" (ngSubmit)="fetchCocktails()">
+      <h4>Search Cocktails</h4>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" placeholder="e.g. Mojito" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Min Alcohol %</mat-label>
+        <input matInput type="number" formControlName="minPercentAlcohol" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Max Alcohol %</mat-label>
+        <input matInput type="number" formControlName="maxPercentAlcohol" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Flavour</mat-label>
+        <mat-select formControlName="flavour">
+          <mat-option value="">All</mat-option>
+          @for (flavour of options?.flavours; track $index) {
+            <mat-option [value]="flavour.value">
+              {{ flavour.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Spirit</mat-label>
+        <mat-select formControlName="spirit">
+          <mat-option value="">All</mat-option>
+          @for (spirit of options?.spirits; track $index) {
+            <mat-option [value]="spirit.value">
+              {{ spirit.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Type</mat-label>
+        <mat-select formControlName="type">
+          <mat-option value="">All</mat-option>
+          @for (type of options?.types; track $index) {
+            <mat-option [value]="type.value">
+              {{ type.name }}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid || isLoading">
+        Search
+      </button>
+    </form>
+  </mat-card>
+
+  <div class="search-results">
+    @if (searchPerformed) {
+      @if (searchResults.length === 0) {
+        <h3 class="no-results">No cocktails found.</h3>
+      } @else if (searchResults.length > 0) {
+        <div class="cocktail-list-container">
+          <h2 class="cocktail-list-header">
+            Cocktails ({{ totalElements }})
+          </h2>
+
+          <div class="cocktail-list">
+            @for (cocktail of searchResults; track $index) {
+              <app-cocktail-card
+                [cocktail]="cocktail"
+                class="cocktail-card"
+              />
+            }
+          </div>
+
+          <app-pagination
+            [page]="page"
+            [totalPages]="totalPages"
+            (pageChange)="loadCocktails($event)">
+          </app-pagination>
+        </div>
+      }
+    }
+  </div>
+</div>
+@if (isLoading || isSearching) {
+  <app-loader class="loading-overlay" />
+}

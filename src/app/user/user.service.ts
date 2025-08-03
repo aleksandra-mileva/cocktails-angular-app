@@ -34,6 +34,7 @@ export class UserService implements OnDestroy {
   }
 
   login(userLoginRequest: UserLoginRequest) {
+    console.log('login', userLoginRequest);
     return this.http
       .post<UserLoginResponse>('/api/auth/login', userLoginRequest)
       .pipe(

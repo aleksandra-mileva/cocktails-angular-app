@@ -1,24 +1,23 @@
-@if (isLoading) {
-  <app-loader />
-} @else {
-  <div class="cocktail-list-container">
-    <h2 class="cocktail-list-header">
-      Cocktails ({{ totalElements }})
-    </h2>
+<div class="cocktail-list-container">
+  <h2 class="cocktail-list-header">
+    Cocktails ({{ totalElements }})
+  </h2>
 
-    <div class="cocktail-list">
-      @for (cocktail of cocktails; track $index) {
-        <app-cocktail-card
-          [cocktail]="cocktail"
-          class="cocktail-card"
-        />
-      }
-    </div>
-
-    <app-pagination
-      [page]="page"
-      [totalPages]="totalPages"
-      (pageChange)="loadCocktails($event)">
-    </app-pagination>
+  <div class="cocktail-list">
+    @for (cocktail of cocktails; track $index) {
+      <app-cocktail-card
+        [cocktail]="cocktail"
+        class="cocktail-card"
+      />
+    }
   </div>
+
+  <app-pagination
+    [page]="page"
+    [totalPages]="totalPages"
+    (pageChange)="loadCocktails($event)">
+  </app-pagination>
+</div>
+@if (isLoading) {
+  <app-loader class="loading-overlay" />
 }

@@ -7,6 +7,7 @@ import {HttpParams} from '@angular/common/http';
 import {PagedModel} from '../../types/pagedModel';
 import {LoaderComponent} from '../../shared/loader/loader.component';
 import {PaginationComponent} from '../../pagination/pagination.component';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-cocktail-list',
@@ -26,15 +27,20 @@ export class CocktailListComponent implements OnInit {
   size: number = 9;
   totalPages: number = 0;
   totalElements: number = 0;
+  spiritParam: string | null = null;
 
   constructor(
+    private route: ActivatedRoute,
     private cocktailService: CocktailsService,
     private errorService: ErrorService
   ) {
   }
 
   ngOnInit(): void {
-    this.fetchCocktails(this.page);
+    this.route.paramMap.subscribe(params => {
+      this.spiritParam = params.get('spirit');
+      this.fetchCocktails(this.page);
+    });
   }
 
   fetchCocktails(page: number): void {
@@ -44,6 +50,11 @@ export class CocktailListComponent implements OnInit {
     const paramsObj: Record<string, string> = {};
     paramsObj['page'] = this.page.toString();
     paramsObj['size'] = this.size.toString();
+
+    if (this.spiritParam) {
+      paramsObj['spirit'] = this.spiritParam.toUpperCase();
+    }
+
     const params = new HttpParams({fromObject: paramsObj});
 
     this.cocktailService.searchCocktails(params).subscribe({

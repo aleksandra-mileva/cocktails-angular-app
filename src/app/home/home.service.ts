@@ -10,7 +10,6 @@ export class HomeService {
   constructor(private http: HttpClient) {}
 
   getHomePageCocktail() {
-    console.log('call home service')
     return this.http.get<HomeView>('/api/');
   }
 }

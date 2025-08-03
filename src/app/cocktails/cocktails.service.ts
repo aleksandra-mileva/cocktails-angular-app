@@ -4,6 +4,7 @@ import {PagedModel} from '../types/pagedModel';
 import {CocktailView} from '../types/cocktailView';
 import {delay, Observable} from 'rxjs';
 import {CocktailDetailsView} from '../types/cocktailDetailsView';
+import {CocktailFormOptions} from '../types/cocktailFormOptions';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,6 @@ export class CocktailsService {
 
   constructor(private http: HttpClient) {
   }
-
-  // getCocktails(page: number = 0, size: number = 9) {
-  //   return this.http.get<Page<CocktailView>>(`/api/offers/all?page=${page}&size=${size}`)
-  //     .pipe(delay(2000));
-  // }
 
   searchCocktails(params: HttpParams): Observable<PagedModel<CocktailView>> {
     return this.http.get<PagedModel<CocktailView>>('/api/cocktails/search', { params })
@@ -46,6 +42,11 @@ export class CocktailsService {
 
   deleteCocktail(id: string): Observable<void> {
     return this.http.delete<void>(`/api/cocktails/${id}`)
+      .pipe(delay(2000));
+  }
+
+  getFormOptions(): Observable<CocktailFormOptions> {
+    return this.http.get<CocktailFormOptions>('/api/cocktails/options')
       .pipe(delay(2000));
   }
 }

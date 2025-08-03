@@ -1,16 +1,16 @@
-@if(isLoading) {
-  <app-loader/>
-} @else {
-  <form class="comment-form" #form = "ngForm" (ngSubmit)="addComment(form)">
+<form class="comment-form" #form="ngForm" (ngSubmit)="addComment(form)">
   <textarea
     name="message"
     placeholder="Add your comment..."
     rows="3"
     required
     ngModel
-    #message = "ngModel"></textarea>
-    <button
-      [disabled] = "form.invalid"
-      [style]="{backgroundColor: form.invalid ? 'grey' : '#234465'}">Post Comment</button>
-  </form>
+    #message="ngModel"></textarea>
+  <button
+    [disabled]="form.invalid"
+    [style]="{backgroundColor: form.invalid ? 'grey' : '#234465'}">Post Comment
+  </button>
+</form>
+@if (isLoading) {
+  <app-loader class="loading-overlay"/>
 }

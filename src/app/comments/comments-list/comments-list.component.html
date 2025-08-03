@@ -4,7 +4,10 @@
     <app-loader/>
   } @else {
     @for (comment of comments; track $index) {
-      <app-comment [comment]="comment" (commentDeleted)="fetchComments(page)"/>
+      <app-comment
+        [comment]="comment"
+        [cocktailId]="cocktailId"
+        (commentDeleted)="fetchComments(page)"/>
     }
   }
 

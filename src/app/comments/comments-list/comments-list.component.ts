@@ -1,9 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CommentAddComponent } from "../comment-add/comment-add.component";
-import { CommentComponent } from "../comment/comment.component";
-import { LoaderComponent } from "../../shared/loader/loader.component";
-import {CommentViewModel} from '../../types/commentViewModel';
+import {Component, Input, OnInit} from '@angular/core';
+import {CommentAddComponent} from "../comment-add/comment-add.component";
+import {CommentComponent} from "../comment/comment.component";
+import {LoaderComponent} from "../../shared/loader/loader.component";
+import {CommentView} from '../../types/commentView';
 import {PaginationComponent} from '../../pagination/pagination.component';
+import {CommentsService} from '../comments.service';
+import {UserService} from '../../user/user.service';
+import {ErrorService} from '../../error/error.service';
+import {PagedModel} from '../../types/pagedModel';
 
 @Component({
   selector: 'app-comments-list',
@@ -18,18 +22,18 @@ import {PaginationComponent} from '../../pagination/pagination.component';
   styleUrls: ['./comments-list.component.css']  // ✅ fixed
 })
 export class CommentsListComponent implements OnInit {
-  @Input() cocktailId!: number;
+  @Input() cocktailId!: string;
 
   isLoadingComments: boolean = true;
-  comments: CommentViewModel[] = [];
+  comments: CommentView[] = [];
   page: number = 0;
   size: number = 2;
   totalPages: number = 0;
 
   constructor(
-    // private commentsService: CommentsService,
-    // private userService: UserService,
-    // private errorService: ErrorService
+    private commentsService: CommentsService,
+    private userService: UserService,
+    private errorService: ErrorService
   ) {
   }
 
@@ -40,36 +44,19 @@ export class CommentsListComponent implements OnInit {
   fetchComments(page: number): void {
     this.isLoadingComments = false;
 
-    this.comments = [
-      {
-        id: 1,
-        text: 'Comment by User',
-        created: '2025-07-31T18:42:02',
-        author: 'User Userov',
-        canDelete: true
+    this.isLoadingComments = true;
+    this.commentsService.getComments(this.cocktailId, page, this.size).subscribe({
+      next: (response: PagedModel<CommentView>) => {
+        this.isLoadingComments = false;
+        this.comments = response.content;
+        this.totalPages = response.page.totalPages;
+        this.page = response.page.number;
       },
-      {
-        id: 1,
-        text: 'Comment by Admin',
-        created: '2025-08-01T18:42:02',
-        author: 'Admin Adminov',
-        canDelete: true
+      error: (err) => {
+        this.isLoadingComments = false;
+        this.errorService.navigateToErrorPage(err);
       }
-    ]
-
-    // this.isLoadingComments = true;
-    // this.commentsService.getComments(this.offerId, page, this.size).subscribe({
-    //   next: (response: Page<CommentView>) => {
-    //     this.isLoadingComments = false;
-    //     this.comments = response.content;
-    //     this.totalPages = response.totalPages;
-    //     this.page = response.number;
-    //   },
-    //   error: (err) => {
-    //     this.isLoadingComments = false;
-    //     this.errorService.navigateToErrorPage(err);
-    //   }
-    // });
+    });
   }
 
   loadComments(newPage: number): void {
@@ -77,7 +64,6 @@ export class CommentsListComponent implements OnInit {
   }
 
   get isLoggedIn(): boolean {
-    // return this.userService.isLogged;
-    return true;
+    return this.userService.isLogged;
   }
 }

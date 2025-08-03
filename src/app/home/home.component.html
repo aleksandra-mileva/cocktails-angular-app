@@ -1,12 +1,21 @@
 <div class="home-container">
-  <div class="image-wrapper" (click)="viewCocktail()" role="button" tabindex="0">
-    <img [src]="cocktail.pictureUrl" alt="Cocktail" class="cocktail-image" />
+  <a
+    class="image-wrapper"
+    [routerLink]="['/cocktails/details', homeView?.cocktail?.id]"
+    role="button"
+    tabindex="0"
+  >
+    <img
+      [src]="homeView?.cocktail?.pictureUrl"
+      alt="Cocktail"
+      class="cocktail-image"
+    />
 
     <div class="overlay-content">
-      <div class="message">{{ message }}</div>
+      <div class="message">{{ homeView?.message }}</div>
       <div class="info-text">
-        <p>Cocktail added by: {{ cocktail.authorFullName }}</p>
+        <p>Cocktail added by: {{ homeView?.cocktail?.authorFullName }}</p>
       </div>
     </div>
-  </div>
+  </a>
 </div>

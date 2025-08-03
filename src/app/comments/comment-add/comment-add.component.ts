@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { LoaderComponent } from '../../shared/loader/loader.component';
 import {CommentAdd} from '../../types/commentAdd';
+import {CommentsService} from '../comments.service';
+import {ErrorService} from '../../error/error.service';
 
 @Component({
   selector: 'app-comment-add',
@@ -17,8 +19,8 @@ export class CommentAddComponent {
   isLoading = false;
 
   constructor(
-    // private commentsService: CommentsService,
-    // private errorService: ErrorService,
+    private commentsService: CommentsService,
+    private errorService: ErrorService,
     private route: ActivatedRoute
   ) {
   }
@@ -26,22 +28,21 @@ export class CommentAddComponent {
   addComment(form: NgForm) {
     if (form.invalid) return;
 
-    // this.isLoading = true;
+    this.isLoading = true;
 
     const commentAdd: CommentAdd = form.value;
-    console.log(commentAdd);
-    // const offerId = this.route.snapshot.params['offerId'];
-    //
-    // this.commentsService.createComment(commentAdd, offerId).subscribe({
-    //   next: () => {
-    //     this.newCommentAdded.emit();
-    //     form.resetForm();
-    //     this.isLoading = false;
-    //   },
-    //   error: (err) => {
-    //     this.isLoading = false;
-    //     this.errorService.navigateToErrorPage(err);
-    //   }
-    // });
+    const cocktailId = this.route.snapshot.params['cocktailId'];
+
+    this.commentsService.createComment(commentAdd, cocktailId).subscribe({
+      next: () => {
+        this.newCommentAdded.emit();
+        form.resetForm();
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorService.navigateToErrorPage(err);
+      }
+    });
   }
 }

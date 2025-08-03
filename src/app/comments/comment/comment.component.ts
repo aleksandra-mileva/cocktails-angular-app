@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 
-import {CommentViewModel} from '../../types/commentViewModel';
+import {CommentView} from '../../types/commentView';
 import {ConfirmationModalComponent} from '../../shared/confirmation-modal/confirmation-modal.component';
 import {LoaderComponent} from '../../shared/loader/loader.component';
+import {CommentsService} from '../comments.service';
+import {ErrorService} from '../../error/error.service';
 
 @Component({
   selector: 'app-comment',
@@ -15,29 +17,29 @@ import {LoaderComponent} from '../../shared/loader/loader.component';
   styleUrl: './comment.component.css'
 })
 export class CommentComponent {
-  @Input() comment: CommentViewModel | null = null;
+  @Input() comment!: CommentView;
   @Output() commentDeleted = new EventEmitter<number>();
+  @Input() cocktailId!: string;
 
   isLoading: boolean = false;
   showConfirmModal: boolean = false;
 
-  // constructor(private commentsService: CommentsService,
-  //             private errorService: ErrorService) {
-  // }
-  //
-  deleteComment(commentId?: number) {
+  constructor(private commentsService: CommentsService,
+              private errorService: ErrorService) {
+  }
+
+  deleteComment(commentId: number) {
     this.isLoading = true;
-    this.comment = null;
-    // this.commentsService.deleteComment(commentId).subscribe({
-    //   next: () => {
-    //     this.isLoading = false;
-    //     this.commentDeleted.emit(commentId);
-    //   },
-    //   error: (err) => {
-    //     this.isLoading = false;
-    //     this.errorService.navigateToErrorPage(err);
-    //   }
-    // });
+    this.commentsService.deleteComment(this.cocktailId, commentId).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.commentDeleted.emit(commentId);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorService.navigateToErrorPage(err);
+      }
+    });
   }
 
   openDeleteModal() {

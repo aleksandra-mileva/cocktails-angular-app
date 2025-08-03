@@ -22,31 +22,37 @@
       </mat-menu>
 
       <button mat-button routerLink="/cocktails/search">Search</button>
-      <button mat-button routerLink="/cocktails/add">Add Cocktail</button>
+      @if (isLogged) {
+        <button mat-button routerLink="/cocktails/add">Add Cocktail</button>
+        <button mat-button [matMenuTriggerFor]="profileMenu">User</button>
+        <mat-menu #profileMenu="matMenu">
+          <button mat-menu-item routerLink="/users/profile/1">Profile</button>
+          <button mat-menu-item routerLink="/users/profile/1/addedCocktails">My Cocktails</button>
+          <button mat-menu-item routerLink="/users/profile/1/addedPictures">My Photos</button>
+          <button mat-menu-item routerLink="/users/profile/1/favoriteCocktails">Favorites</button>
+          <button mat-menu-item routerLink="/fortunes/fortune">Get Fortune</button>
+        </mat-menu>
+      }
 
-      <button mat-button [matMenuTriggerFor]="profileMenu">User</button>
-      <mat-menu #profileMenu="matMenu">
-        <button mat-menu-item routerLink="/users/profile/1">Profile</button>
-        <button mat-menu-item routerLink="/users/profile/1/addedCocktails">My Cocktails</button>
-        <button mat-menu-item routerLink="/users/profile/1/addedPictures">My Photos</button>
-        <button mat-menu-item routerLink="/users/profile/1/favoriteCocktails">Favorites</button>
-        <button mat-menu-item routerLink="/fortunes/fortune">Get Fortune</button>
-      </mat-menu>
-
-      <button mat-button [matMenuTriggerFor]="adminMenu">Admin</button>
-      <mat-menu #adminMenu="matMenu">
-        <button mat-menu-item routerLink="/statistics">Statistics</button>
-        <button mat-menu-item routerLink="/fortunes">Fortunes</button>
-        <button mat-menu-item routerLink="/fortunes/add">Add Fortune</button>
-      </mat-menu>
+      @if (isAdmin) {
+        <button mat-button [matMenuTriggerFor]="adminMenu">Admin</button>
+        <mat-menu #adminMenu="matMenu">
+          <button mat-menu-item routerLink="/statistics">Statistics</button>
+          <button mat-menu-item routerLink="/fortunes">Fortunes</button>
+          <button mat-menu-item routerLink="/fortunes/add">Add Fortune</button>
+        </mat-menu>
+      }
     </div>
 
     <!-- RIGHT: Welcome & Auth buttons -->
     <div class="right-section">
-      <span class="welcome-text">Welcome, Aleksandra</span>
-      <button mat-button class="logout-btn">Logout</button>
-      <button mat-button routerLink="/users/register">Register</button>
-      <button mat-button routerLink="/users/login">Login</button>
+      @if (isLogged) {
+        <span class="welcome-text">Welcome, {{ username }}</span>
+        <button mat-button class="logout-btn" (click)="logout()">Logout</button>
+      } @else {
+        <button mat-button routerLink="/users/register">Register</button>
+        <button mat-button routerLink="/users/login">Login</button>
+      }
     </div>
   </div>
 </mat-toolbar>

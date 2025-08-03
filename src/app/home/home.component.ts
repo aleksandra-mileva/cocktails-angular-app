@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
+import {HomeService} from './home.service';
+import {HomeView} from '../types/homeView';
 
 @Component({
   selector: 'app-home',
@@ -8,19 +10,17 @@ import {Router, RouterLink} from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-  cocktail = {
-    id: 1,
-    pictureUrl: 'https://res.cloudinary.com/dlknl4mzd/image/upload/v1723493424/rfx5pdjd6cpn3pbbrtcm.jpg',
-    authorFullName: 'Aleksandra Mileva',
+  homeView!: HomeView;
+
+  constructor(private homeService: HomeService, private router: Router) {
   }
 
-  message = 'Need a non-alcoholic cocktail? This is our today\'s suggestion for you!';
-
-  constructor(private router: Router) {}
-
-  viewCocktail() {
-    this.router.navigate(['/cocktails', this.cocktail.id]);
+  ngOnInit(): void {
+    this.homeService.getHomePageCocktail().subscribe({
+      next: (data) => this.homeView = data,
+      error: (err) => console.error('Failed to fetch home page cocktail', err)
+    });
   }
 }

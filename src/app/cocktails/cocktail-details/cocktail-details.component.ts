@@ -1,63 +1,96 @@
-import {Component} from '@angular/core';
-import {FlavourEnum} from '../../types/enums/flavour-enum';
-import {SpiritNameEnum} from '../../types/enums/spirit-name-enum';
-import {CocktailDetailsViewModel} from '../../types/cocktailDetailsViewModel';
+import {Component, OnInit} from '@angular/core';
+import {CocktailDetailsView} from '../../types/cocktailDetailsView';
 import {MatIcon} from '@angular/material/icon';
-import {MatFormField, MatLabel} from '@angular/material/form-field';
 import {TitleCasePipe} from '@angular/common';
 import {SafeUrlPipe} from '../../shared/pipes/safe-url.pipe';
 import {MatButtonModule} from '@angular/material/button';
 import {CommentsListComponent} from '../../comments/comments-list/comments-list.component';
+import {ActivatedRoute, Router} from '@angular/router';
+import {ErrorService} from '../../error/error.service';
+import {CocktailsService} from '../cocktails.service';
+import {CocktailView} from '../../types/cocktailView';
+import {ConfirmationModalComponent} from '../../shared/confirmation-modal/confirmation-modal.component';
+import {UserService} from '../../user/user.service';
+import {LoaderComponent} from '../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-cocktail-details',
   standalone: true,
   imports: [
     MatIcon,
-    MatFormField,
-    MatLabel,
     TitleCasePipe,
     SafeUrlPipe,
     MatButtonModule,
-    CommentsListComponent
+    CommentsListComponent,
+    ConfirmationModalComponent,
+    LoaderComponent
   ],
   templateUrl: './cocktail-details.component.html',
   styleUrl: './cocktail-details.component.css'
 })
-export class CocktailDetailsComponent {
+export class CocktailDetailsComponent implements OnInit {
+  cocktail!: CocktailDetailsView;
+  cocktailId: string = '';
+  isLoading: boolean = true;
+  showConfirmModal: boolean = false;
 
-  cocktail: CocktailDetailsViewModel = {
-    id: 1,
-    name: 'Пина Колада',
-    ingredients: [
-      '30 мл. бял ром',
-      '30 мл. кокосова сметана',
-      '90 мл. сок от ананас',
-      '5 с.л. натрошен лед',
-      '1 резенче ананас'
-    ],
-    author: 'User Userov',
-    videoId: 'YaQEaf92z00',
-    preparation: 'Белият ром (30 мл.), кокосовата сметана (30 мл.) и сокът от ананас (90 мл.) се смесват с натрошен лед до получаване на еднородна смес.\n\nНалива се в изстудена коктейлна чаша.\n\nКоктейлът Пина Колада се украсява с парченца ананас.\n\nВместо сок от ананас, най-добре е да направите пресен сок от плода като разбиете няколко резенчета в блендер.',
-    flavour: FlavourEnum.SWEET,
-    spirit: SpiritNameEnum.RUM,
-    pictureUrl: 'https://res.cloudinary.com/dlknl4mzd/image/upload/v1723493424/rfx5pdjd6cpn3pbbrtcm.jpg',
-    percentAlcohol: 13,
-    servings: 1,
-    picture: {
-      id: 1,
-      url: 'https://res.cloudinary.com/dlknl4mzd/image/upload/v1723493424/rfx5pdjd6cpn3pbbrtcm.jpg'
-    },
-    comments: [
-      {
-        id: 1,
-        text: 'Comment by Admin',
-        created: '2025-07-31T18:42:02',
-        author: 'User Userov',
-        canDelete: true
-      }
-    ],
-    canDelete: true,
-    favorite: true
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private errorService: ErrorService,
+    private cocktailService: CocktailsService,
+    private userService: UserService
+  ) {
   }
+
+  ngOnInit(): void {
+    this.cocktailId = this.route.snapshot.params['cocktailId'];
+    console.log(this.cocktailId);
+    this.fetchCocktailDetails();
+  }
+
+  deleteCocktail(): void {
+    this.isLoading = true;
+
+    this.cocktailService.deleteCocktail(this.cocktailId).subscribe({
+      next: () => {
+        this.isLoading = false;
+        this.router.navigate(['/cocktails/all']);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorService.navigateToErrorPage(err);
+      }
+    });
+  }
+
+  goToEdit(offer: CocktailView): void {
+    this.router.navigate(['/cocktails', offer.id, 'edit'], {state: {offer}});
+  }
+
+  openDeleteModal(): void {
+    this.showConfirmModal = true;
+  }
+
+  handleCancel(): void {
+    this.showConfirmModal = false;
+  }
+
+  get isLoggedIn(): boolean {
+    return this.userService.isLogged;
+  }
+
+  private fetchCocktailDetails(): void {
+    this.cocktailService.getSingleCocktail(this.cocktailId).subscribe({
+      next: (cocktail) => {
+        this.cocktail = cocktail;
+        this.isLoading = false;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorService.navigateToErrorPage(err);
+      }
+    });
+  }
+
 }

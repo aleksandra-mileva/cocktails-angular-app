@@ -1,9 +1,9 @@
 <mat-card class="cocktail-card-container mat-elevation-z4">
-  <img mat-card-image [src]="cocktail.pictureUrl" alt="{{ cocktail.name }}" class="no-radius" />
+  <img mat-card-image [src]="cocktail?.pictureUrl" alt="{{ cocktail?.name }}" class="no-radius" />
 
   <mat-card-content class="card-body">
-    <h5 class="card-title">{{ cocktail.name }}</h5>
-    <p class="card-author">Added by: {{ cocktail.author }}</p>
+    <h5 class="card-title">{{ cocktail?.name }}</h5>
+    <p class="card-author">Added by: {{ cocktail?.author }}</p>
   </mat-card-content>
 
   <mat-divider></mat-divider>
@@ -11,24 +11,24 @@
   <div class="card-footer">
     <div class="footer-item">
       <p>Spirit</p>
-      <p class="bold">{{ cocktail.spirit === 'NONE' ? 'None' : cocktail.spirit }}</p>
+      <p class="bold">{{ cocktail?.spirit === 'NONE' ? 'None' : cocktail?.spirit }}</p>
     </div>
     <div class="footer-item">
       <p>Flavour</p>
-      <p class="bold">{{ cocktail.flavour.toLowerCase() | titlecase }}</p>
+      <p class="bold">{{ cocktail?.flavour?.toLowerCase() | titlecase }}</p>
     </div>
     <div class="footer-item">
       <p>%</p>
-      <p class="bold">{{ cocktail.percentAlcohol }}%</p>
+      <p class="bold">{{ cocktail?.percentAlcohol }}%</p>
     </div>
     <div class="footer-item">
       <p>Servings</p>
-      <p class="bold">{{ cocktail.servings }}</p>
+      <p class="bold">{{ cocktail?.servings }}</p>
     </div>
   </div>
 
   <mat-card-actions class="details-wrapper">
-    <a [routerLink]="['/cocktails/details', cocktail.id]"
+    <a [routerLink]="['/cocktails/details', cocktail?.id]"
        class="details-btn"
        mat-button>
       Details

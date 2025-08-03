@@ -1,0 +1,159 @@
+@if(isLoading) {
+  <app-loader/>
+} @else {
+  <div class="container register-container">
+
+    <h2 class="register-title">Register User</h2>
+
+    <form (ngSubmit)="register()" [formGroup]="form" class="register-form">
+
+      <!-- First Name & Last Name -->
+      <div class="row">
+        <div class="form-group col-half">
+          <label class="form-label" for="firstName">First Name</label>
+          <input autocomplete="first-name" class="form-input" formControlName="firstName" id="firstName" placeholder="First name" type="text"/>
+          @if (form.get('firstName')?.touched) {
+            <div>
+              @if (form.get('firstName')?.errors?.['required']) {
+                <p class="errors">First name is required.</p>
+              }
+              @if (form.get('firstName')?.errors?.['minlength']) {
+                <p class="errors">First name must be at least 3 characters!</p>
+              }
+              @if (form.get('firstName')?.errors?.['maxlength']) {
+                <p class="errors">First name must be max 20 characters!</p>
+              }
+            </div>
+          }
+
+          @if (backendErrorsMap['firstName']) {
+            <p class="errors">{{ backendErrorsMap['firstName'] }}</p>
+          }
+        </div>
+
+        <div class="form-group col-half">
+          <label class="form-label" for="lastName">Last Name</label>
+          <input autocomplete="last-name" class="form-input" formControlName="lastName" id="lastName" placeholder="Last name" type="text"/>
+          @if (form.get('lastName')?.touched) {
+            <div>
+              @if (form.get('lastName')?.errors?.['required']) {
+                <p class="errors">Last name is required.</p>
+              }
+              @if (form.get('lastName')?.errors?.['minlength']) {
+                <p class="errors">Last name must be at least 3 characters!</p>
+              }
+              @if (form.get('lastName')?.errors?.['maxlength']) {
+                <p class="errors">Last name must be max 20 characters!</p>
+              }
+            </div>
+          }
+
+          @if (backendErrorsMap['lastName']) {
+            <p class="errors">{{ backendErrorsMap['lastName'] }}</p>
+          }
+        </div>
+      </div>
+
+      <!-- Username and Email -->
+      <div class="row">
+        <div class="form-group col-half">
+          <label class="form-label" for="username">Username</label>
+          <input autocomplete="user-name" class="form-input" formControlName="username" id="username" placeholder="Username" type="text"/>
+          @if (form.get('username')?.touched) {
+            <div>
+              @if (form.get('username')?.errors?.['required']) {
+                <p class="errors">Username is required.</p>
+              }
+              @if (form.get('username')?.errors?.['minlength']) {
+                <p class="errors">Username must be at least 3 characters!</p>
+              }
+              @if (form.get('username')?.errors?.['maxlength']) {
+                <p class="errors">Username must be max 20 characters!</p>
+              }
+            </div>
+          }
+
+          @if (backendErrorsMap['username']) {
+            <p class="errors">{{ backendErrorsMap['username'] }}</p>
+          }
+        </div>
+
+        <div class="form-group col-half">
+          <label class="form-label" for="email">Email</label>
+          <input autocomplete="email" class="form-input" formControlName="email" id="email" placeholder="Email" type="text"/>
+          @if (form.get('email')?.touched) {
+            <div>
+              @if (form.get('email')?.errors?.['required']) {
+                <p class="errors">Email is required!</p>
+              }
+              @if (form.get('email')?.errors?.['emailValidator']) {
+                <p class="errors">Email is not valid!</p>
+              }
+            </div>
+          }
+
+          @if (backendErrorsMap['email']) {
+            <p class="errors">{{ backendErrorsMap['email'] }}</p>
+          }
+        </div>
+      </div>
+
+      <!-- Password & Repeat Password (Grouped) -->
+      <ng-container formGroupName="passwordGroup">
+        <div class="row">
+          <div class="form-group col-half">
+            <label class="form-label" for="password">Password</label>
+            <input autocomplete="new-password" class="form-input" formControlName="password" id="password" placeholder="Password" type="password"/>
+            @if (form.get('passwordGroup.password')?.touched) {
+              <div>
+                @if (form.get('passwordGroup.password')?.errors?.['required']) {
+                  <p class="errors">Password is required!</p>
+                }
+                @if (form.get('passwordGroup.password')?.errors?.['minlength']) {
+                  <p class="errors">Password must be at least 3 characters!</p>
+                }
+                @if (form.get('passwordGroup.password')?.errors?.['maxlength']) {
+                  <p class="errors">Password must be max 20 characters!</p>
+                }
+              </div>
+            }
+
+            @if (backendErrorsMap['passwordGroup.password']) {
+              <p class="errors">{{ backendErrorsMap['passwordGroup.password'] }}</p>
+            }
+          </div>
+
+          <div class="form-group col-half">
+            <label class="form-label" for="repeatPassword">Repeat Password</label>
+            <input autocomplete="new-password" class="form-input" formControlName="rePassword" id="repeatPassword" placeholder="Repeat password" type="password"/>
+            @if (form.get('passwordGroup.rePassword')?.touched) {
+              <div>
+                @if (form.get('passwordGroup.rePassword')?.errors?.['required']) {
+                  <p class="errors">Repeat password is required!</p>
+                } @else {
+                  @if (form.get('passwordGroup')?.errors?.['matchPasswordsValidator']) {
+                    <p class="errors">Passwords do not match!</p>
+                  }
+                }
+              </div>
+            }
+
+            @if (backendErrorsMap['passwordGroup.rePassword']) {
+              <p class="errors">{{ backendErrorsMap['passwordGroup.rePassword'] }}</p>
+            }
+          </div>
+        </div>
+      </ng-container>
+
+
+      <!-- Submit -->
+      <div class="button-holder">
+        <button [disabled]="form.invalid || hasBackendErrors()"
+                [style]="{ backgroundColor: (form.invalid || hasBackendErrors()) ? 'grey' : '#4ebced' }"
+                class="btn-submit">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+}

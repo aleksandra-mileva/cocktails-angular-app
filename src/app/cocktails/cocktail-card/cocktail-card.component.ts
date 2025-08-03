@@ -1,6 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {MatCard, MatCardActions, MatCardContent, MatCardImage} from '@angular/material/card';
-import {CocktailViewModel} from '../../types/cocktailViewModel';
+import {CocktailView} from '../../types/cocktailView';
 import {MatDivider} from '@angular/material/divider';
 import {TitleCasePipe} from '@angular/common';
 import {RouterLink} from '@angular/router';
@@ -23,7 +23,5 @@ import {MatAnchor} from '@angular/material/button';
   styleUrl: './cocktail-card.component.css'
 })
 export class CocktailCardComponent {
-
-  @Input() cocktail!: CocktailViewModel;
-
+  @Input() cocktail!: CocktailView;
 }

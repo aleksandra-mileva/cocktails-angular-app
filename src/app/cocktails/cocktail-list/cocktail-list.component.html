@@ -12,11 +12,20 @@
     }
   </div>
 
-  <app-pagination
-    [page]="page"
-    [totalPages]="totalPages"
-    (pageChange)="loadCocktails($event)">
-  </app-pagination>
+<!--  <app-pagination-->
+<!--    [page]="page"-->
+<!--    [totalPages]="totalPages"-->
+<!--    (pageChange)="loadCocktails($event)">-->
+<!--  </app-pagination>-->
+
+  <div class="paginator-wrapper">
+    <mat-paginator
+      [length]="totalElements"
+      [pageSize]="size"
+      [pageIndex]="page"
+      (page)="loadCocktails($event)">
+    </mat-paginator>
+  </div>
 </div>
 @if (isLoading) {
   <app-loader class="loading-overlay" />

@@ -64,8 +64,8 @@ export class CocktailDetailsComponent implements OnInit {
     });
   }
 
-  goToEdit(offer: CocktailView): void {
-    this.router.navigate(['/cocktails', offer.id, 'edit'], {state: {offer}});
+  goToEdit(cocktail: CocktailView): void {
+    this.router.navigate(['/cocktails', cocktail.id, 'edit'], {state: {cocktail}});
   }
 
   openDeleteModal(): void {

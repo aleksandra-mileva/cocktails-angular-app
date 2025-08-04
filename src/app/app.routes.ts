@@ -5,6 +5,9 @@ import {CocktailDetailsComponent} from './cocktails/cocktail-details/cocktail-de
 import {CocktailSearchComponent} from './cocktails/cocktail-search/cocktail-search.component';
 import {LoginComponent} from './user/login/login.component';
 import {RegisterComponent} from './user/register/register.component';
+import {CocktailAddComponent} from './cocktails/cocktail-add/cocktail-add.component';
+import {AuthGuard} from './shared/guards/auth.guard';
+import {CocktailUpdateComponent} from './cocktails/cocktail-update/cocktail-update.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -23,7 +26,9 @@ export const routes: Routes = [
       {path: 'all', component: CocktailListComponent},
       {path: 'search', component: CocktailSearchComponent},
       {path: 'details/:cocktailId', component: CocktailDetailsComponent},
-      {path: 'spirit/:spirit', component: CocktailListComponent}
+      {path: 'spirit/:spirit', component: CocktailListComponent},
+      {path: 'add', component: CocktailAddComponent, canActivate: [AuthGuard] },
+      {path: ':cocktailId/edit', component: CocktailUpdateComponent, canActivate: [AuthGuard]}
     ]
   }
 ];

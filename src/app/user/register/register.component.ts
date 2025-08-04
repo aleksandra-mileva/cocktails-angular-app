@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { emailValidator } from '../../validators/email.validator';
+import { emailValidator } from '../../shared/validators/email.validator';
 import { DOMAINS } from '../../constants';
-import { matchPasswordsValidator } from '../../validators/match-passwords.validator';
+import { matchPasswordsValidator } from '../../shared/validators/match-passwords.validator';
 import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { ErrorService } from '../../error/error.service';

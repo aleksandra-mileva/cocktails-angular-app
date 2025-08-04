@@ -17,7 +17,6 @@ import {LoaderComponent} from '../../shared/loader/loader.component';
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
-  domains = DOMAINS;
   badCredentials: boolean = false;
   isLoading: boolean = false;
   username: string = '';

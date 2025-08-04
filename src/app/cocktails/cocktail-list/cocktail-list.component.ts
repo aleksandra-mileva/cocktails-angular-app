@@ -8,6 +8,7 @@ import {PagedModel} from '../../types/pagedModel';
 import {LoaderComponent} from '../../shared/loader/loader.component';
 import {PaginationComponent} from '../../pagination/pagination.component';
 import {ActivatedRoute} from '@angular/router';
+import {MatPaginator, PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-cocktail-list',
@@ -15,7 +16,8 @@ import {ActivatedRoute} from '@angular/router';
   imports: [
     CocktailCardComponent,
     LoaderComponent,
-    PaginationComponent
+    PaginationComponent,
+    MatPaginator
   ],
   templateUrl: './cocktail-list.component.html',
   styleUrl: './cocktail-list.component.css'
@@ -72,7 +74,9 @@ export class CocktailListComponent implements OnInit {
     });
   }
 
-  loadCocktails(newPage: number): void {
-    this.fetchCocktails(newPage);
+  loadCocktails(event: PageEvent): void {
+    this.size = event.pageSize;
+    this.page = event.pageIndex;
+    this.fetchCocktails(event.pageIndex);
   }
 }

@@ -18,6 +18,14 @@
   gap: 2rem;
 }
 
+.paginator-wrapper {
+  margin-top: 1rem;
+  background-color: #faf9fd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.32);
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 960px) {
   .cocktail-list {
     grid-template-columns: repeat(2, 1fr);

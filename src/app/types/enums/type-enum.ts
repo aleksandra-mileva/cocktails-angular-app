@@ -1,0 +1,4 @@
+export enum TypeEnum {
+  ALCOHOLIC = 'ALCOHOLIC',
+  NON_ALCOHOLIC = 'NON_ALCOHOLIC'
+}

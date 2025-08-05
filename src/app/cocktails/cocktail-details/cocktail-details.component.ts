@@ -45,7 +45,6 @@ export class CocktailDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.cocktailId = this.route.snapshot.params['cocktailId'];
-    console.log(this.cocktailId);
     this.fetchCocktailDetails();
   }
 
@@ -75,6 +74,18 @@ export class CocktailDetailsComponent implements OnInit {
   handleCancel(): void {
     this.showConfirmModal = false;
   }
+
+  favouriteCocktail(): void {
+    this.userService.favouriteCocktail(this.cocktailId).subscribe({
+      next: () => {
+        this.cocktail.favorite = !this.cocktail.favorite;
+      },
+      error: (err) => {
+        this.errorService.navigateToErrorPage(err);
+      }
+    });
+  }
+
 
   get isLoggedIn(): boolean {
     return this.userService.isLogged;

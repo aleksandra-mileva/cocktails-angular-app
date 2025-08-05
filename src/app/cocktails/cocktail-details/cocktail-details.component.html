@@ -10,7 +10,7 @@
         <span class="author">Author: {{ cocktail?.author }}</span>
         @if (isLoggedIn) {
           <span class="divider">|</span>
-          <button mat-button color="accent" class="favorite-btn">
+          <button mat-button color="accent" class="favorite-btn" (click)="favouriteCocktail()">
             <mat-icon>{{ cocktail?.favorite ? 'star' : 'star_border' }}</mat-icon>
             {{ cocktail?.favorite ? 'Unfavorite' : 'Favorite' }}
           </button>

@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, delay, dematerialize, materialize, Subscription, tap} from 'rxjs';
+import {BehaviorSubject, delay, dematerialize, materialize, Observable, Subscription, tap} from 'rxjs';
 import {UserLoginResponse} from '../types/userLoginResponse';
 import {UserRegisterRequest} from '../types/userRegisterRequest';
 import {UserLoginRequest} from '../types/userLoginRequest';
@@ -34,7 +34,6 @@ export class UserService implements OnDestroy {
   }
 
   login(userLoginRequest: UserLoginRequest) {
-    console.log('login', userLoginRequest);
     return this.http
       .post<UserLoginResponse>('/api/auth/login', userLoginRequest)
       .pipe(
@@ -59,6 +58,10 @@ export class UserService implements OnDestroy {
       delay(2000),
       dematerialize()
     );
+  }
+
+  favouriteCocktail(id: string) {
+    return this.http.post<boolean>(`/api/users/favourites/${id}`, {});
   }
 
   ngOnDestroy(): void {

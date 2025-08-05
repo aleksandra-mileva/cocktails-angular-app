@@ -1,1 +1,9 @@
-<p>cocktail-add works!</p>
+<app-cocktail-form
+  mode="create"
+  [backendErrorsMap]="errorMap"
+  (submitForm)="createCocktail($event)">
+</app-cocktail-form>
+
+@if (isLoading) {
+  <app-loader class="loading-overlay"/>
+}

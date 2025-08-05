@@ -3,9 +3,26 @@
     name="text"
     placeholder="Add your comment..."
     rows="3"
-    required
     ngModel
-    #text="ngModel"></textarea>
+    #text="ngModel"
+    required
+    minlength="10"
+  ></textarea>
+  @if (text?.touched) {
+    <div>
+      @if (text.errors?.['required']) {
+        <p class="errors">
+          Comment text is required!
+        </p>
+      }
+
+      @if (text.errors?.['minlength']) {
+        <p class="errors">
+          Comment must be at least 10 characters!
+        </p>
+      }
+    </div>
+  }
   <button
     [disabled]="form.invalid"
     [style]="{backgroundColor: form.invalid ? 'grey' : '#234465'}">Post Comment

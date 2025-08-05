@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {PagedModel} from '../types/pagedModel';
 import {CocktailView} from '../types/cocktailView';
-import {delay, Observable} from 'rxjs';
+import {delay, dematerialize, materialize, Observable} from 'rxjs';
 import {CocktailDetailsView} from '../types/cocktailDetailsView';
 import {CocktailFormOptions} from '../types/cocktailFormOptions';
 
@@ -24,21 +24,21 @@ export class CocktailsService {
       .pipe(delay(2000));
   }
 
-  // createCocktail(offerAdd: OfferAddOrEdit) {
-  //   return this.http.post<OfferView>('/api/offers/add', offerAdd).pipe(
-  //     materialize(),
-  //     delay(2000),
-  //     dematerialize()
-  //   );
-  // }
-  //
-  // updateOffer(id: string, offerUpdate: OfferAddOrEdit) {
-  //   return this.http.put<OfferView>(`/api/offers/edit/${id}`, offerUpdate).pipe(
-  //     materialize(),
-  //     delay(2000),
-  //     dematerialize()
-  //   );
-  // }
+  createCocktail(formData: FormData) {
+    return this.http.post<CocktailDetailsView>('/api/cocktails', formData).pipe(
+      materialize(),
+      delay(2000),
+      dematerialize()
+    );
+  }
+
+  updateCocktail(id: string, formData: FormData) {
+    return this.http.put<CocktailDetailsView>(`/api/cocktails/${id}`, formData).pipe(
+      materialize(),
+      delay(2000),
+      dematerialize()
+    );
+  }
 
   deleteCocktail(id: string): Observable<void> {
     return this.http.delete<void>(`/api/cocktails/${id}`)

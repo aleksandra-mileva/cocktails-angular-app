@@ -1,6 +1,7 @@
 import {FlavourEnum} from './enums/flavour-enum';
 import {SpiritNameEnum} from './enums/spirit-name-enum';
 import {PictureView} from './pictureView';
+import {TypeEnum} from './enums/type-enum';
 
 export interface CocktailDetailsView {
   id: number;
@@ -8,9 +9,11 @@ export interface CocktailDetailsView {
   ingredients: string[];
   author: string;
   videoId: string;
+  videoUrl: string;
   preparation: string;
   flavour: FlavourEnum;
   spirit: SpiritNameEnum;
+  type: TypeEnum;
   pictureUrl: string;
   percentAlcohol: number;
   servings: number;

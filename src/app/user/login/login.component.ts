@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {FormsModule, NgForm} from '@angular/forms';
 import {UserService} from '../user.service';
 import {Router} from '@angular/router';
-import {DOMAINS} from '../../constants';
 import {UserLoginRequest} from '../../types/userLoginRequest';
 import {LoaderComponent} from '../../shared/loader/loader.component';
 
@@ -26,10 +25,7 @@ export class LoginComponent {
 
   login(form: NgForm): void {
     if (form.invalid) {
-      console.error('Invalid login form!');
       return;
-    } else {
-      console.log('valid form')
     }
 
     this.isLoading = true;

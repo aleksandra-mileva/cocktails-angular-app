@@ -1,1 +1,108 @@
-<p>cocktail-form works!</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-container mat-elevation-z4">
+
+  <h2 class="title">{{ mode === 'create' ? 'Add Cocktail' : 'Update Cocktail' }}</h2>
+
+  <!-- Cocktail Name -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Cocktail name</mat-label>
+    <input matInput formControlName="name" />
+    @if (form.get('name')?.touched && form.get('name')?.invalid) {
+      <mat-error>
+        Cocktail name is required (5-20 characters).
+      </mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Percent Alcohol -->
+  <mat-form-field appearance="fill" class="half-width">
+    <mat-label>Percent alcohol</mat-label>
+    <input matInput type="number" formControlName="percentAlcohol" />
+    @if (form.get('percentAlcohol')?.touched && form.get('percentAlcohol')?.invalid) {
+      <mat-error>
+        Must be a whole number bigger or equal to 0.
+      </mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Servings -->
+  <mat-form-field appearance="fill" class="half-width">
+    <mat-label>Servings</mat-label>
+    <input matInput type="number" formControlName="servings" />
+    @if (form.get('servings')?.touched && form.get('servings')?.invalid) {
+      <mat-error>
+        Must be a whole number bigger than 1.
+      </mat-error>
+    }
+  </mat-form-field>
+
+  <!-- Flavour -->
+  <mat-form-field appearance="fill" class="half-width">
+    <mat-label>Flavour</mat-label>
+    <mat-select formControlName="flavour">
+      @for (flavour of options?.flavours; track $index) {
+        <mat-option [value]="flavour.value">
+          {{ flavour.name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Spirit -->
+  <mat-form-field appearance="fill" class="half-width">
+    <mat-label>Spirit</mat-label>
+    <mat-select formControlName="spirit">
+      @for (spirit of options?.spirits; track $index) {
+        <mat-option [value]="spirit.value">
+          {{ spirit.name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Type -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      @for (type of options?.types; track $index) {
+        <mat-option [value]="type.value">
+          {{ type.name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Ingredients -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Ingredients</mat-label>
+    <textarea matInput formControlName="ingredients" rows="4"></textarea>
+  </mat-form-field>
+
+  <!-- Preparation -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Preparation</mat-label>
+    <textarea matInput formControlName="preparation" rows="4"></textarea>
+  </mat-form-field>
+
+  <!-- Video URL -->
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Video URL</mat-label>
+    <input matInput formControlName="videoUrl" />
+  </mat-form-field>
+
+  <!-- Picture Upload -->
+  <div class="upload-wrapper">
+    <label for="pictureInput">Picture</label>
+    <input type="file" id="pictureInput" (change)="onFileSelected($event)" accept="image/*" />
+    @if (picture) {
+      <div>
+        <p>Selected: {{ picture.name }}</p>
+      </div>
+    }
+  </div>
+
+  <!-- Submit -->
+  <button mat-raised-button color="primary" type="submit"
+          [disabled]="form.invalid || hasBackendErrors()"
+          [style]="{ backgroundColor: (form.invalid || hasBackendErrors()) ? 'grey' : '#4ebced' }"
+  >Submit Cocktail</button>
+</form>

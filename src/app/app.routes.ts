@@ -8,6 +8,7 @@ import {RegisterComponent} from './user/register/register.component';
 import {CocktailAddComponent} from './cocktails/cocktail-add/cocktail-add.component';
 import {AuthGuard} from './shared/guards/auth.guard';
 import {CocktailUpdateComponent} from './cocktails/cocktail-update/cocktail-update.component';
+import {CocktailFormComponent} from './cocktails/cocktail-form/cocktail-form.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},

@@ -31,3 +31,9 @@
   background: #3aa4d9;
 }
 
+.errors {
+  color: #ff6666;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+

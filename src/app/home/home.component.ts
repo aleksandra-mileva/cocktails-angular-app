@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {RouterLink} from '@angular/router';
 import {HomeService} from './home.service';
 import {HomeView} from '../types/homeView';
+import {ErrorService} from '../error/error.service';
 
 @Component({
   selector: 'app-home',
@@ -14,13 +15,16 @@ export class HomeComponent implements OnInit {
 
   homeView!: HomeView;
 
-  constructor(private homeService: HomeService, private router: Router) {
+  constructor(
+    private homeService: HomeService,
+    private errorService: ErrorService,
+  ) {
   }
 
   ngOnInit(): void {
     this.homeService.getHomePageCocktail().subscribe({
       next: (data) => this.homeView = data,
-      error: (err) => console.error('Failed to fetch home page cocktail', err)
+      error: (err) => this.errorService.navigateToErrorPage(err)
     });
   }
 }

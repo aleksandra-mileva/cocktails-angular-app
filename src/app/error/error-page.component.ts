@@ -16,10 +16,8 @@ export class ErrorPageComponent {
     const nav = this.router.getCurrentNavigation();
     if (nav?.extras?.state) {
       this.errorCode = (nav.extras.state['errorCode'] ?? this.errorCode).toString();
-      console.log(this.errorCode);
 
       this.message = nav.extras.state['message'] ?? this.message;
-      console.log(this.message);
     }
   }
 }

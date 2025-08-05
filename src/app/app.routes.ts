@@ -8,7 +8,8 @@ import {RegisterComponent} from './user/register/register.component';
 import {CocktailAddComponent} from './cocktails/cocktail-add/cocktail-add.component';
 import {AuthGuard} from './shared/guards/auth.guard';
 import {CocktailUpdateComponent} from './cocktails/cocktail-update/cocktail-update.component';
-import {CocktailFormComponent} from './cocktails/cocktail-form/cocktail-form.component';
+import {LoaderComponent} from './shared/loader/loader.component';
+import {ErrorPageComponent} from './error/error-page.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -31,5 +32,9 @@ export const routes: Routes = [
       {path: 'add', component: CocktailAddComponent, canActivate: [AuthGuard] },
       {path: ':cocktailId/edit', component: CocktailUpdateComponent, canActivate: [AuthGuard]}
     ]
-  }
+  },
+
+  {path: 'loader', component: LoaderComponent},
+  { path: 'error', component: ErrorPageComponent },
+  { path: '**', redirectTo: '/error', pathMatch: 'full', }
 ];

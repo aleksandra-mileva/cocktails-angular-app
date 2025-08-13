@@ -66,7 +66,7 @@ export class RegisterComponent implements OnInit {
   });
 
   constructor(private userService: UserService,
-              private errorServIce: ErrorService,
+              private errorService: ErrorService,
               private router: Router) {
   }
 
@@ -113,7 +113,7 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/users/login']);
         },
         error: err => {
-          this.errorServIce.handleHttpPostFormError(err, this.backendErrorsMap, this.mapBackendFieldToFormField);
+          this.errorService.handleHttpPostFormError(err, this.backendErrorsMap, this.mapBackendFieldToFormField);
           this.isLoading = false;
         }
       });

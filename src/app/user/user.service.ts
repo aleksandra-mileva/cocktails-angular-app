@@ -1,10 +1,12 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, delay, dematerialize, materialize, Observable, Subscription, tap} from 'rxjs';
+import {BehaviorSubject, delay, dematerialize, materialize, Subscription, tap} from 'rxjs';
 import {UserLoginResponse} from '../types/userLoginResponse';
 import {UserRegisterRequest} from '../types/userRegisterRequest';
 import {UserLoginRequest} from '../types/userLoginRequest';
 import {AuthoritiesEnum} from '../types/enums/authorities-enum';
+import {UserEdit} from '../types/userEdit';
+import {UserView} from '../types/userView';
 
 @Injectable({ providedIn: 'root' })
 export class UserService implements OnDestroy {
@@ -66,5 +68,14 @@ export class UserService implements OnDestroy {
 
   ngOnDestroy(): void {
     this.userSubscription.unsubscribe();
+  }
+
+  getProfile(id: string) {
+    return this.http.get<UserView>(`/api/users/${id}`)
+      .pipe(delay(2000));
+  }
+
+  updateProfile(id: string, userEdit: UserEdit) {
+    return this.http.put<UserView>(`/api/users/${id}`, userEdit);
   }
 }

@@ -3,20 +3,37 @@ import { BackendValidationErrorResponse, FieldError } from '../types/backendVali
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { BackendValidationMap } from '../types/backendValidationMap';
+import {UserService} from '../user/user.service';
 
 @Injectable({providedIn: 'root'})
 export class ErrorService {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: UserService) {}
 
   handleHttpPostFormError(
     err: HttpErrorResponse,
     errorMap: BackendValidationMap,
     mapField?: (backendField: string) => string
   ): void {
+    // Backend validation errors
     if (err.status === 400 && err.error?.errors) {
       this.collectBackendValidationErrors(err.error, errorMap, mapField);
-    } else {
+    }
+    // Username changed / login required
+    else if (
+      err.status === 401 &&
+      Array.isArray(err.error?.errors) &&
+      err.error.errors.some((e: { field: string; }) => e.field === 'username')
+    ) {
+      alert('Your username has changed. Please log in again.');
+      this.userService.logout();
+      this.router.navigate(['/users/login']);
+    }
+
+    else if (err.status === 409 && (err.error?.errors)) {
+      this.collectBackendValidationErrors(err.error, errorMap, mapField);
+    }
+    else {
       this.navigateToErrorPage(err);
     }
   }

@@ -37,6 +37,11 @@ export class HeaderComponent {
     return user ? `${user.username}` : '';
   }
 
+  get userId(): number | null {
+    const user = this.userService.user;
+    return user ? user.id : null;
+  }
+
   logout() {
     this.userService.logout();
     this.router.navigate(['/users/login']);

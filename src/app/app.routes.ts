@@ -10,6 +10,7 @@ import {AuthGuard} from './shared/guards/auth.guard';
 import {CocktailUpdateComponent} from './cocktails/cocktail-update/cocktail-update.component';
 import {LoaderComponent} from './shared/loader/loader.component';
 import {ErrorPageComponent} from './error/error-page.component';
+import {ProfileComponent} from './user/profile/profile.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -18,7 +19,8 @@ export const routes: Routes = [
   {
     path: 'users', children: [
       {path: 'login', component: LoginComponent},
-      {path: 'register', component: RegisterComponent}
+      {path: 'register', component: RegisterComponent},
+      {path: 'profile/:userId', component: ProfileComponent}
     ]
   },
 

@@ -1,0 +1,79 @@
+.profile-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 1.5rem;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+input[readonly] {
+  background: #f9f9f9;
+  color: #555;
+}
+
+input {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.errors {
+  color: #ff4c4c;
+  background-color: rgba(255, 0, 0, 0.15);
+  padding: 0.7em 1em;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-top: 0.5em;
+}
+
+.actions {
+  text-align: right;
+  display: flex;
+  gap: 0.5rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+}
+
+button[type="submit"] {
+  background: #1976d2;
+  color: white;
+}
+
+button.cancel {
+  background: #e53935;
+  color: white;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

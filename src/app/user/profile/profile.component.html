@@ -1,0 +1,134 @@
+<div class="profile-container mat-elevation-z4">
+
+  <h2 class="title">User Profile</h2>
+
+  <form [formGroup]="form" (ngSubmit)="saveProfile()">
+    <div class="row">
+      <!-- First Name -->
+      <div class="form-field">
+        <label for="firstName">First Name</label>
+        <input
+          id="firstName"
+          type="text"
+          formControlName="firstName"
+          [readonly]="!isEditMode"
+        />
+        <!-- Frontend validation -->
+        @if (form.get('firstName')?.touched) {
+          <div>
+            @if (form.get('firstName')?.errors?.['required']) {
+              <p class="errors">First name is required.</p>
+            }
+            @if (form.get('firstName')?.errors?.['minlength']) {
+              <p class="errors">First name must be at least 3 characters!</p>
+            }
+            @if (form.get('firstName')?.errors?.['maxlength']) {
+              <p class="errors">First name must be max 20 characters!</p>
+            }
+          </div>
+        }
+        <!-- Backend validation -->
+        @if (errorMap['firstName']) {
+          <p class="errors">{{ errorMap['firstName'] }}</p>
+        }
+      </div>
+
+      <!-- Last Name -->
+      <div class="form-field">
+        <label for="lastName">Last Name</label>
+        <input
+          id="lastName"
+          type="text"
+          formControlName="lastName"
+          [readonly]="!isEditMode"
+        />
+        @if (form.get('lastName')?.touched) {
+          <div>
+            @if (form.get('lastName')?.errors?.['required']) {
+              <p class="errors">Last name is required.</p>
+            }
+            @if (form.get('lastName')?.errors?.['minlength']) {
+              <p class="errors">Last name must be at least 3 characters!</p>
+            }
+            @if (form.get('lastName')?.errors?.['maxlength']) {
+              <p class="errors">Last name must be max 20 characters!</p>
+            }
+          </div>
+        }
+        @if (errorMap['lastName']) {
+          <p class="errors">{{ errorMap['lastName'] }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="row">
+      <!-- Username -->
+      <div class="form-field">
+        <label for="username">Username</label>
+        <input
+          id="username"
+          type="text"
+          formControlName="username"
+          [readonly]="!isEditMode"
+        />
+        @if (form.get('username')?.touched) {
+          <div>
+            @if (form.get('username')?.errors?.['required']) {
+              <p class="errors">Username is required.</p>
+            }
+            @if (form.get('username')?.errors?.['minlength']) {
+              <p class="errors">Username must be at least 3 characters!</p>
+            }
+            @if (form.get('username')?.errors?.['maxlength']) {
+              <p class="errors">Username must be max 20 characters!</p>
+            }
+          </div>
+        }
+
+        @if (errorMap['username']) {
+          <p class="errors">{{ errorMap['username'] }}</p>
+        }
+      </div>
+
+      <!-- Email -->
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          [readonly]="!isEditMode"
+        />
+        @if (form.get('email')?.touched) {
+          <div>
+            @if (form.get('email')?.errors?.['required']) {
+              <p class="errors">Email is required!</p>
+            }
+            @if (form.get('email')?.errors?.['emailValidator']) {
+              <p class="errors">Email is not valid!</p>
+            }
+          </div>
+        }
+
+        @if (errorMap['email']) {
+          <p class="errors">{{ errorMap['email'] }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="actions">
+      @if (!isEditMode) {
+        <button type="button" (click)="toggleEdit()">Edit</button>
+      } @else {
+        <ng-container>
+          <button type="submit" [disabled]="form.invalid || isLoading">Save</button>
+          <button type="button" class="cancel" (click)="toggleEdit()">Cancel</button>
+        </ng-container>
+      }
+    </div>
+  </form>
+
+</div>
+@if (isLoading) {
+  <app-loader class="loading-overlay"></app-loader>
+}

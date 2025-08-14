@@ -27,8 +27,8 @@
         <button mat-button [matMenuTriggerFor]="profileMenu">User</button>
         <mat-menu #profileMenu="matMenu">
           <button mat-menu-item [routerLink]="['/users/profile', userId]">Profile</button>
-          <button mat-menu-item routerLink="/users/profile/1/addedCocktails">My Cocktails</button>
-          <button mat-menu-item routerLink="/users/profile/1/favoriteCocktails">My Favorites</button>
+          <button mat-menu-item [routerLink]="['/users/profile', userId, 'addedCocktails']">My Cocktails</button>
+          <button mat-menu-item [routerLink]="['/users/profile', userId, 'favoriteCocktails']">My Favorites</button>
         </mat-menu>
       }
 

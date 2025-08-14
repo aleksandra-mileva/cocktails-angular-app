@@ -1,49 +1,47 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 import {CocktailView} from '../../types/cocktailView';
-import {CocktailCardComponent} from '../cocktail-card/cocktail-card.component';
-import {CocktailsService} from '../cocktails.service';
+import {ActivatedRoute} from '@angular/router';
+import {UserService} from '../user.service';
 import {ErrorService} from '../../error/error.service';
 import {HttpParams} from '@angular/common/http';
 import {PagedModel} from '../../types/pagedModel';
-import {LoaderComponent} from '../../shared/loader/loader.component';
-import {ActivatedRoute} from '@angular/router';
 import {MatPaginator, PageEvent} from '@angular/material/paginator';
+import {CocktailCardComponent} from '../../cocktails/cocktail-card/cocktail-card.component';
+import {LoaderComponent} from '../../shared/loader/loader.component';
 
 @Component({
-  selector: 'app-cocktail-list',
+  selector: 'app-favourite-cocktails',
   standalone: true,
   imports: [
     CocktailCardComponent,
     LoaderComponent,
     MatPaginator
   ],
-  templateUrl: './cocktail-list.component.html',
-  styleUrl: './cocktail-list.component.css'
+  templateUrl: './favourite-cocktails.component.html',
+  styleUrl: './favourite-cocktails.component.css'
 })
-export class CocktailListComponent implements OnInit {
+export class FavouriteCocktailsComponent {
+  userId: string = '';
   cocktails: CocktailView[] = [];
   isLoading: boolean = true;
   page: number = 0;
   size: number = 9;
   totalPages: number = 0;
   totalElements: number = 0;
-  spiritParam: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
-    private cocktailService: CocktailsService,
+    private userService: UserService,
     private errorService: ErrorService
   ) {
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.spiritParam = params.get('spirit');
-      this.fetchCocktails(this.page);
-    });
+    this.userId = this.route.snapshot.params['userId'];
+    this.fetchFavouriteCocktails(this.userId, this.page);
   }
 
-  fetchCocktails(page: number): void {
+  fetchFavouriteCocktails(userId: string, page: number): void {
     this.isLoading = true;
     this.page = page;
 
@@ -51,13 +49,9 @@ export class CocktailListComponent implements OnInit {
     paramsObj['page'] = this.page.toString();
     paramsObj['size'] = this.size.toString();
 
-    if (this.spiritParam) {
-      paramsObj['spirit'] = this.spiritParam.toUpperCase();
-    }
-
     const params = new HttpParams({fromObject: paramsObj});
 
-    this.cocktailService.searchCocktails(params).subscribe({
+    this.userService.getUserFavouriteCocktails(userId, params).subscribe({
       next: (response: PagedModel<CocktailView>) => {
         this.cocktails = response.content;
         this.totalPages = response.page.totalPages;
@@ -75,6 +69,6 @@ export class CocktailListComponent implements OnInit {
   loadCocktails(event: PageEvent): void {
     this.size = event.pageSize;
     this.page = event.pageIndex;
-    this.fetchCocktails(event.pageIndex);
+    this.fetchFavouriteCocktails(this.userId, event.pageIndex);
   }
 }

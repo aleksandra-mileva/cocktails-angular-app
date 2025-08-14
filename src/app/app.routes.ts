@@ -11,6 +11,9 @@ import {CocktailUpdateComponent} from './cocktails/cocktail-update/cocktail-upda
 import {LoaderComponent} from './shared/loader/loader.component';
 import {ErrorPageComponent} from './error/error-page.component';
 import {ProfileComponent} from './user/profile/profile.component';
+import {AddedCocktailsComponent} from './user/added-cocktails/added-cocktails.component';
+import {FavouriteCocktailsComponent} from './user/favourite-cocktails/favourite-cocktails.component';
+import {StatisticsComponent} from './statistics/statistics.component';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -20,7 +23,9 @@ export const routes: Routes = [
     path: 'users', children: [
       {path: 'login', component: LoginComponent},
       {path: 'register', component: RegisterComponent},
-      {path: 'profile/:userId', component: ProfileComponent}
+      {path: 'profile/:userId', component: ProfileComponent},
+      {path: 'profile/:userId/addedCocktails', component: AddedCocktailsComponent},
+      {path: 'profile/:userId/favoriteCocktails', component: FavouriteCocktailsComponent}
     ]
   },
 
@@ -37,6 +42,7 @@ export const routes: Routes = [
   },
 
   {path: 'loader', component: LoaderComponent},
+  {path: 'statistics', component: StatisticsComponent},
   { path: 'error', component: ErrorPageComponent },
   { path: '**', redirectTo: '/error', pathMatch: 'full', }
 ];

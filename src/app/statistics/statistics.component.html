@@ -1,0 +1,51 @@
+<div class="statistics-container">
+  <h2>
+    Statistics – {{ statistics?.localDateTime | date:"MMM dd, yyyy 'at' hh:mm a" }}
+  </h2>
+
+  <table class="statistics-table mat-elevation-z8">
+    <tr>
+      <th>Statistic</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>All Cocktails</td>
+      <td>{{ statistics?.allCocktails }}</td>
+    </tr>
+    <tr>
+      <td>Whiskey Cocktails</td>
+      <td>{{ statistics?.whiskeyCocktails }}</td>
+    </tr>
+    <tr>
+      <td>Tequila Cocktails</td>
+      <td>{{ statistics?.tequilaCocktails }}</td>
+    </tr>
+    <tr>
+      <td>Gin Cocktails</td>
+      <td>{{ statistics?.ginCocktails }}</td>
+    </tr>
+    <tr>
+      <td>Rum Cocktails</td>
+      <td>{{ statistics?.rumCocktails }}</td>
+    </tr>
+    <tr>
+      <td>Vodka Cocktails</td>
+      <td>{{ statistics?.vodkaCocktails }}</td>
+    </tr>
+    <tr>
+      <td>Brandy Cocktails</td>
+      <td>{{ statistics?.brandyCocktails }}</td>
+    </tr>
+    <tr>
+      <td>Non-Alcoholic Cocktails</td>
+      <td>{{ statistics?.nonAlcoholicCocktails }}</td>
+    </tr>
+    <tr>
+      <td>Users Count</td>
+      <td>{{ statistics?.usersCount }}</td>
+    </tr>
+  </table>
+</div>
+@if (isLoading) {
+  <app-loader class="loading-overlay" />
+}

@@ -86,7 +86,6 @@ export class CocktailDetailsComponent implements OnInit {
     });
   }
 
-
   get isLoggedIn(): boolean {
     return this.userService.isLogged;
   }

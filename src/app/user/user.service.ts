@@ -1,12 +1,14 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, delay, dematerialize, materialize, Subscription, tap} from 'rxjs';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {BehaviorSubject, delay, dematerialize, materialize, Observable, Subscription, tap} from 'rxjs';
 import {UserLoginResponse} from '../types/userLoginResponse';
 import {UserRegisterRequest} from '../types/userRegisterRequest';
 import {UserLoginRequest} from '../types/userLoginRequest';
 import {AuthoritiesEnum} from '../types/enums/authorities-enum';
 import {UserEdit} from '../types/userEdit';
 import {UserView} from '../types/userView';
+import {PagedModel} from '../types/pagedModel';
+import {CocktailView} from '../types/cocktailView';
 
 @Injectable({ providedIn: 'root' })
 export class UserService implements OnDestroy {
@@ -62,8 +64,8 @@ export class UserService implements OnDestroy {
     );
   }
 
-  favouriteCocktail(id: string) {
-    return this.http.post<boolean>(`/api/users/favourites/${id}`, {});
+  favouriteCocktail(cocktailId: string) {
+    return this.http.post<boolean>(`/api/users/favourites/${cocktailId}`, {});
   }
 
   ngOnDestroy(): void {
@@ -77,5 +79,15 @@ export class UserService implements OnDestroy {
 
   updateProfile(id: string, userEdit: UserEdit) {
     return this.http.put<UserView>(`/api/users/${id}`, userEdit);
+  }
+
+  getUserAddedCocktails(id: string, params: HttpParams): Observable<PagedModel<CocktailView>> {
+    return this.http.get<PagedModel<CocktailView>>(`/api/users/${id}/cocktails`, { params })
+      .pipe(delay(2000));
+  }
+
+  getUserFavouriteCocktails(id: string, params: HttpParams): Observable<PagedModel<CocktailView>> {
+    return this.http.get<PagedModel<CocktailView>>(`/api/users/${id}/favorites`, { params })
+      .pipe(delay(2000));
   }
 }

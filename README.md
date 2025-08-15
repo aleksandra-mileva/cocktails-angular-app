@@ -7,7 +7,7 @@ This project is a blog about cocktails. It is a place where users can find recip
 
 **<span style="font-size: large;">The application consumes the REST API from the following repository: [Cocktails REST API](https://github.com/aleksandra-mileva/cocktails-rest-api)</span>**
 
-**<span style="font-size: medium;">See how to run the Cocktails REST API in its Readme: [Cocktails REST API](https://github.com/aleksandra-mileva/cocktails-rest-api/blob/main/README.md)</span>**
+**<span style="font-size: medium;">See how to run the Cocktails REST API in its Readme: [Cocktails REST API Readme](https://github.com/aleksandra-mileva/cocktails-rest-api/blob/main/README.md)</span>**
 
 ## How to run the Cocktails Angular App
 - This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.19.

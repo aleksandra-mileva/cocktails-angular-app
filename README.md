@@ -30,6 +30,8 @@ This project is a blog about cocktails. It is a place where users can find recip
 - **Cloudinary API**
 - **Custom Pipes, Guards, and Interceptors**
 - **CSS** & Angular Animations
+- **Pagination**
+- **Modals**
 
 ---
 

@@ -45,6 +45,7 @@ export class CocktailSearchComponent implements OnInit {
 
   isLoading = true;
   isSearching: boolean = false;
+  searchPerformed: boolean = false;
 
   page: number = 0;
   size: number = 9;
@@ -103,6 +104,7 @@ export class CocktailSearchComponent implements OnInit {
     this.cocktailService.searchCocktails(params).subscribe({
       next: (results: PagedModel<CocktailView>) => {
         this.isSearching = false;
+        this.searchPerformed = true;
         this.searchResults = results.content;
         this.totalPages = results.page.totalPages;
         this.page = results.page.number;

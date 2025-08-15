@@ -61,7 +61,7 @@
   </mat-card>
 
   <div class="search-results">
-    @if (!isSearching) {
+    @if (searchPerformed) {
       @if (searchResults.length === 0) {
         <h3 class="no-results">No cocktails found.</h3>
       } @else if (searchResults.length > 0) {

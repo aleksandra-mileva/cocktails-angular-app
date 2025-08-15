@@ -15,13 +15,11 @@ export class CocktailsService {
   }
 
   searchCocktails(params: HttpParams): Observable<PagedModel<CocktailView>> {
-    return this.http.get<PagedModel<CocktailView>>('/api/cocktails/search', { params })
-      .pipe(delay(2000));
+    return this.http.get<PagedModel<CocktailView>>('/api/cocktails/search', { params });
   }
 
   getSingleCocktail(id: string) {
-    return this.http.get<CocktailDetailsView>(`/api/cocktails/${id}`)
-      .pipe(delay(2000));
+    return this.http.get<CocktailDetailsView>(`/api/cocktails/${id}`);
   }
 
   createCocktail(formData: FormData) {

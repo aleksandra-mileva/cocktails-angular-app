@@ -13,7 +13,7 @@ This project is a blog about cocktails. It is a place where users can find recip
 - This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.19.
 - You need to run the Rest Api first.
 - You need to have Node.js and npm installed.
-- install dependencies: `npm install`.
+- Install dependencies: `npm install`.
 - If you have Angular CLI installed globally and it matches the project’s Angular version, you can run: `ng serve`.
 - The application will be available at: http://localhost:4200
 - You can log in with the following credentials:
@@ -29,7 +29,7 @@ This project is a blog about cocktails. It is a place where users can find recip
 - **Angular Material**
 - **Cloudinary API**
 - **Custom Pipes, Guards, and Interceptors**
-- **CSS** & Angular Animations
+- CSS & Angular Animations
 - **Pagination**
 - **Modals**
 
@@ -56,9 +56,9 @@ This project is a blog about cocktails. It is a place where users can find recip
 - **Mark/unmark cocktails as favourites**
 - **View your profile:** `/users/profile/:userId`
 - **Edit profile details**
-- **List all cocktails uploaded by the logged-in user**
-- **View favourite cocktails list**
-- **View statistics (admin only):** `/statistics`
+- **List all cocktails uploaded by the logged-in user:** `profile/:userId/addedCocktails`
+- **View favourite cocktails list:** `profile/:userId/favoriteCocktails`
+- **View statistics (Admin only):** `/statistics`
 
 ---
 
@@ -70,7 +70,7 @@ This project is a blog about cocktails. It is a place where users can find recip
 - Observables for asynchronous data handling
 - RxJS operators
 - Lifecycle hooks** (`ngOnInit` and `ngOnChanges`)
-- Custom Pipe → `SafeUrlPipe` in order to embed youtube videos
+- Custom Pipe → `SafeUrlPipe` in order to embed YouTube videos
 - Pagination
 - Animations applied to enhance UI transitions
 - Confirmation modals for deleting cocktails and comments

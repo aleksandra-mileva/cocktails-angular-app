@@ -1,6 +1,6 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {BehaviorSubject, delay, dematerialize, materialize, Observable, Subscription, tap} from 'rxjs';
+import {BehaviorSubject, Observable, Subscription, tap} from 'rxjs';
 import {UserLoginResponse} from '../types/userLoginResponse';
 import {UserRegisterRequest} from '../types/userRegisterRequest';
 import {UserLoginRequest} from '../types/userLoginRequest';
@@ -41,7 +41,6 @@ export class UserService implements OnDestroy {
     return this.http
       .post<UserLoginResponse>('/api/auth/login', userLoginRequest)
       .pipe(
-        delay(2000),
         tap(user => {
           localStorage.setItem('user', JSON.stringify(user));
           localStorage.setItem('token', user.token);
@@ -57,11 +56,7 @@ export class UserService implements OnDestroy {
   }
 
   register(userRegisterRequest: UserRegisterRequest) {
-    return this.http.post('/api/auth/register', userRegisterRequest).pipe(
-      materialize(),
-      delay(2000),
-      dematerialize()
-    );
+    return this.http.post('/api/auth/register', userRegisterRequest);
   }
 
   favouriteCocktail(cocktailId: string) {
@@ -73,8 +68,7 @@ export class UserService implements OnDestroy {
   }
 
   getProfile(id: string) {
-    return this.http.get<UserView>(`/api/users/${id}`)
-      .pipe(delay(2000));
+    return this.http.get<UserView>(`/api/users/${id}`);
   }
 
   updateProfile(id: string, userEdit: UserEdit) {
@@ -82,12 +76,10 @@ export class UserService implements OnDestroy {
   }
 
   getUserAddedCocktails(id: string, params: HttpParams): Observable<PagedModel<CocktailView>> {
-    return this.http.get<PagedModel<CocktailView>>(`/api/users/${id}/cocktails`, { params })
-      .pipe(delay(2000));
+    return this.http.get<PagedModel<CocktailView>>(`/api/users/${id}/cocktails`, { params });
   }
 
   getUserFavouriteCocktails(id: string, params: HttpParams): Observable<PagedModel<CocktailView>> {
-    return this.http.get<PagedModel<CocktailView>>(`/api/users/${id}/favorites`, { params })
-      .pipe(delay(2000));
+    return this.http.get<PagedModel<CocktailView>>(`/api/users/${id}/favorites`, { params });
   }
 }

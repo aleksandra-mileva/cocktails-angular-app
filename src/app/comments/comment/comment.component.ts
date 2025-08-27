@@ -34,6 +34,7 @@ export class CommentComponent {
       next: () => {
         this.isLoading = false;
         this.commentDeleted.emit(commentId);
+        this.showConfirmModal = false;
       },
       error: (err) => {
         this.isLoading = false;
